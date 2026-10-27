@@ -1,0 +1,873 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090515">
+<title>A Little Universe for You ❤️</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  --pink: #ff8fc8;
+  --purple: #bd91ff;
+  --white: #fff4fb;
+  --muted: #c4b5d8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: #090515;
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.aurora {
+  position: fixed;
+  inset: -30%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 25% 35%, rgba(111,52,173,.19), transparent 43%),
+    radial-gradient(ellipse at 75% 65%, rgba(207,57,137,.13), transparent 40%);
+  animation: aurora 12s ease-in-out infinite alternate;
+}
+
+@keyframes aurora {
+  to { transform: translate(4%, -3%) scale(1.1); }
+}
+
+.screen {
+  position: relative;
+  z-index: 1;
+  display: none;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 35px 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: appear .8s ease both;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 23px;
+}
+
+h1, h2, .serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(43px, 11vw, 75px);
+  line-height: 1.05;
+}
+
+h2 {
+  font-size: clamp(34px, 8vw, 51px);
+  line-height: 1.15;
+}
+
+.gradient {
+  background: linear-gradient(110deg, #fff1fa, #ff91c9, #c6a1ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 440px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+  margin-top: 23px;
+}
+
+.btn {
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50px;
+  padding: 14px 25px;
+  margin-top: 27px;
+  color: white;
+  background: linear-gradient(110deg, rgba(225,99,174,.25), rgba(136,92,219,.25));
+  box-shadow: 0 0 30px rgba(224,97,184,.1);
+  transition: .3s ease;
+}
+
+.btn:hover, .btn:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--pink);
+  box-shadow: 0 0 30px rgba(255,143,200,.22);
+}
+
+.btn:active {
+  transform: scale(.97);
+}
+
+.small-note {
+  color: #8f82a7;
+  font-size: 10px;
+  margin-top: 18px;
+}
+
+/* Animated heart */
+
+.heart-orbit {
+  width: 180px;
+  height: 180px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin-bottom: 28px;
+}
+
+.orbit {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,143,200,.22);
+  border-radius: 50%;
+  animation: rotate 12s linear infinite;
+}
+
+.orbit::before {
+  content: "✦";
+  position: absolute;
+  color: #ffd4ee;
+  top: 13px;
+  left: 27px;
+  font-size: 13px;
+}
+
+.orbit.two {
+  inset: 15px;
+  border-color: rgba(189,145,255,.25);
+  animation-direction: reverse;
+  animation-duration: 9s;
+}
+
+@keyframes rotate {
+  to { transform: rotate(360deg); }
+}
+
+.big-heart {
+  font-size: 75px;
+  filter: drop-shadow(0 0 22px rgba(255,92,166,.55));
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.13); }
+}
+
+/* Interactive galaxy */
+
+.galaxy {
+  width: min(88vw, 360px);
+  aspect-ratio: 1;
+  position: relative;
+  margin: 25px 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(181,101,255,.16), transparent 48%),
+    radial-gradient(circle, rgba(236,96,180,.09), transparent 70%);
+}
+
+.planet {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3);
+  color: white;
+  background: rgba(33,20,60,.92);
+  box-shadow: 0 0 25px rgba(189,145,255,.18);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  transition: .3s;
+}
+
+.planet:hover, .planet:focus-visible {
+  transform: scale(1.12);
+  box-shadow: 0 0 32px rgba(255,143,200,.35);
+}
+
+.p1 { top: 5%; left: 39%; }
+.p2 { top: 30%; right: 1%; }
+.p3 { bottom: 12%; right: 16%; }
+.p4 { bottom: 7%; left: 15%; }
+.p5 { top: 28%; left: 0; }
+
+.galaxy-core {
+  position: absolute;
+  inset: 32%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle, rgba(255,143,200,.28), rgba(131,81,200,.1), transparent);
+  font-size: 45px;
+  animation: heartbeat 2.5s infinite;
+}
+
+.galaxy-line {
+  position: absolute;
+  inset: 15%;
+  border: 1px dashed rgba(213,172,255,.22);
+  border-radius: 50%;
+  transform: rotate(-25deg) scaleY(.65);
+}
+
+.planet-hint {
+  color: #9d8caf;
+  font-size: 11px;
+  line-height: 1.8;
+  max-width: 300px;
+}
+
+/* Message popup */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  background: rgba(5,2,13,.82);
+  backdrop-filter: blur(12px);
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 24px;
+  border: 1px solid rgba(255,143,200,.3);
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(39,24,62,.98), rgba(20,10,36,.98));
+  box-shadow: 0 0 70px rgba(155,73,192,.16);
+  animation: appear .4s ease both;
+}
+
+.modal-card .emoji {
+  font-size: 38px;
+  margin-bottom: 18px;
+}
+
+.modal-card h2 {
+  font-size: 34px;
+}
+
+.modal-card p {
+  color: #d4c5e4;
+  font-size: 13px;
+  line-height: 2;
+  margin-top: 17px;
+}
+
+/* Envelope */
+
+.envelope-wrap {
+  width: 260px;
+  height: 185px;
+  position: relative;
+  margin: 60px 0 20px;
+  perspective: 900px;
+}
+
+.envelope {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  background: linear-gradient(145deg, #d986b4, #8f5ab9);
+  box-shadow: 0 15px 60px rgba(218,96,180,.18);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(35deg, transparent 49.5%, rgba(255,255,255,.2) 50%, transparent 50.5%);
+  z-index: 3;
+}
+
+.flap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 100px solid #e8a5cd;
+  transform-origin: top center;
+  transition: transform .8s ease;
+  z-index: 5;
+}
+
+.letter {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  height: 155px;
+  padding: 18px 10px;
+  background: #fff3f8;
+  color: #57324e;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 1s ease;
+  z-index: 2;
+}
+
+.letter span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  margin-top: 12px;
+}
+
+.envelope-wrap.open .flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-wrap.open .letter {
+  transform: translateY(-120px);
+  z-index: 4;
+}
+
+.letter-card {
+  display: none;
+  width: 100%;
+  max-width: 450px;
+  padding: 28px 24px;
+  margin-top: 15px;
+  border: 1px solid rgba(255,143,200,.22);
+  border-radius: 22px;
+  background: rgba(255,255,255,.045);
+  text-align: left;
+}
+
+.letter-card.show {
+  display: block;
+  animation: appear .9s ease both;
+}
+
+.letter-card p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  line-height: 1.8;
+  color: #f4e8fa;
+  margin: 13px 0;
+}
+
+.letter-card .signature {
+  text-align: right;
+  color: var(--pink);
+  font-style: italic;
+}
+
+/* Final scene */
+
+.final-heart {
+  font-size: 95px;
+  filter: drop-shadow(0 0 35px rgba(255,85,160,.6));
+  animation: heartbeat 2s infinite;
+  margin: 15px 0 25px;
+}
+
+.final-message {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(25px, 6vw, 35px);
+  line-height: 1.6;
+  max-width: 440px;
+}
+
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #766989;
+  font-size: 10px;
+  padding: 18px;
+}
+
+#petals {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -35px;
+  animation: fall linear forwards;
+  opacity: .8;
+}
+
+@keyframes fall {
+  to {
+    transform: translate3d(var(--drift), 110vh, 0) rotate(600deg);
+    opacity: 0;
+  }
+}
+
+.music-btn {
+  position: fixed;
+  z-index: 15;
+  right: 14px;
+  top: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(35,22,56,.8);
+}
+
+@media (max-width: 360px) {
+  .planet {
+    width: 55px;
+    height: 55px;
+    font-size: 21px;
+  }
+
+  .envelope-wrap {
+    transform: scale(.9);
+    margin: 40px 0;
+  }
+}
+</style></head>
+<body>
+  <canvas id="stars"></canvas>
+
+<div class="aurora"></div>
+<div id="petals"></div><button class="music-btn" id="musicBtn" aria-label="Toggle ambient sound">♫</button>
+
+<!-- SCREEN 1: WELCOME --><section class="screen active" id="s1">
+  <div class="eyebrow">A little universe · made for you</div>  <div class="heart-orbit">
+    <div class="orbit"></div>
+    <div class="orbit two"></div>
+    <div class="big-heart">♡</div>
+  </div>  <h1>Hey, <span class="gradient" id="herName">you</span>...</h1>  <p class="description">
+    There's something I've been wanting to tell you.
+    So I made this little corner of the universe,
+    just to say what I sometimes struggle to put into words.
+  </p>  <button class="btn" onclick="goTo('s2')">
+    Enter my little universe ✨
+  </button>  <div class="small-note">TAKE YOUR TIME · THERE'S NO RUSH</div>
+</section><!-- SCREEN 2: GALAXY --><section class="screen" id="s2">
+  <div class="eyebrow">Chapter 01 · Little things</div>  <h2>A few things<br><span class="gradient">I want you to know.</span></h2>  <p class="description">
+    Every star holds a little message.
+    Tap them to discover what I wanted to tell you.
+  </p>  <div class="galaxy">
+    <div class="galaxy-line"></div>
+    <div class="galaxy-core">♡</div><button class="planet p1" onclick="reveal(0)">🌷</button>
+<button class="planet p2" onclick="reveal(1)">✨</button>
+<button class="planet p3" onclick="reveal(2)">🌙</button>
+<button class="planet p4" onclick="reveal(3)">🪐</button>
+<button class="planet p5" onclick="reveal(4)">💗</button>
+
+  </div>  <p class="planet-hint">Visit the five little stars before continuing.</p><button class="btn" id="nextGalaxy" onclick="goTo('s3')" disabled
+style="opacity:.45;cursor:not-allowed">
+Continue when you're ready →
+</button>
+
+</section><!-- SCREEN 3: APOLOGY LETTER --><section class="screen" id="s3">
+  <div class="eyebrow">Chapter 02 · Something I mean</div>  <h2>I'm truly<br><span class="gradient">sorry.</span></h2>  <div class="envelope-wrap" id="envelope">
+    <div class="envelope"></div><div class="letter">
+  A little letter
+  <span>FROM MY HEART ♡</span>
+</div>
+
+<div class="flap"></div>
+
+  </div>  <p class="description" id="envelopeHint">
+    There's a letter inside. Open it whenever you're ready.
+  </p>  <button class="btn" id="openLetter" onclick="openEnvelope()">
+    Open my letter 💌
+  </button>  <div class="letter-card" id="letterCard">
+    <h2 class="gradient" style="font-size:35px">Dear you,</h2><p>
+  I'm sorry for what happened. I've been thinking about it,
+  and I don't want to pretend that saying two words fixes everything.
+</p>
+
+<p>
+  If I hurt you, your feelings deserve to be heard.
+  I want to understand how this affected you instead of
+  making excuses or expecting you to move on straight away.
+</p>
+
+<p>
+  You matter to me, and I'm sorry for my part in what went wrong.
+  I want to learn from this and show through my actions that
+  I can handle things better.
+</p>
+
+<p>
+  You don't owe me an immediate answer or forgiveness.
+  I just wanted to be honest with you and tell you that I'm sorry.
+</p>
+
+<p class="signature">
+  With sincerity, ❤️<br>
+  <span id="senderName">Kunal</span>
+</p>
+
+<button class="btn" style="width:100%" onclick="goTo('s4')">
+  One last thing... ✨
+</button>
+
+  </div>
+</section><!-- SCREEN 4: FINAL MESSAGE --><section class="screen" id="s4">
+  <div class="eyebrow">Chapter 03 · From my heart</div>  <div class="final-heart">♡</div>  <h2 class="gradient">No pressure.<br>Just honesty.</h2>  <p class="final-message" style="margin-top:25px">
+    "I can't change what happened,
+    but I can learn from it and try to do better."
+  </p>  <p class="description">
+    I hope this little universe made you feel cared for.
+    Whatever you need right now, I respect that.
+    Thank you for reading my words. ❤️
+  </p>  <button class="btn" onclick="makeFlowers()">
+    A little wish for you 🌸
+  </button>  <p class="small-note">MADE WITH SINCERITY · JUST FOR YOU</p>
+</section><div class="footer">A little universe, made with care ♡</div><!-- MESSAGE POPUP --><div class="modal" id="modal" role="dialog" aria-modal="true"
+     aria-labelledby="modalTitle" onclick="closeOutside(event)">
+  <div class="modal-card">
+    <div class="emoji" id="modalEmoji">🌷</div><h2 class="gradient" id="modalTitle">A little thought</h2>
+
+<p id="modalText"></p>
+
+<button class="btn" onclick="closeModal()">
+  Keep this in your heart ♡
+</button>
+
+  </div>
+</div><script>
+// ======================================
+// PERSONALIZE YOUR WEBSITE
+// ======================================
+
+const HER_NAME = "you";
+const YOUR_NAME = "Kunal";
+
+const messages = [
+  {
+    emoji: "🌷",
+    title: "You matter.",
+    text: "You are a person with your own feelings, thoughts and dreams. I want you to know that what you feel matters to me."
+  },
+  {
+    emoji: "✨",
+    title: "I regret hurting you.",
+    text: "I'm sorry for my part in what went wrong. I don't want to dismiss your feelings or make excuses for my actions."
+  },
+  {
+    emoji: "🌙",
+    title: "I want to listen.",
+    text: "I want to understand your side properly, even when it is difficult for me to hear. Your feelings deserve space."
+  },
+  {
+    emoji: "🪐",
+    title: "I want to do better.",
+    text: "I know that meaningful change takes more than words. I want my future actions to show what I have learned."
+  },
+  {
+    emoji: "💗",
+    title: "No pressure.",
+    text: "You can take the time you need. I won't ask you to forgive me before you're ready. I just wanted to say I'm sorry."
+  }
+];
+
+document.getElementById("herName").textContent = HER_NAME;
+document.getElementById("senderName").textContent = YOUR_NAME;
+
+// ======================================
+// SCREEN NAVIGATION
+// ======================================
+
+function goTo(id) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (id === "s4") makePetals(12);
+}
+
+// ======================================
+// INTERACTIVE GALAXY
+// ======================================
+
+const discovered = new Set();
+
+function reveal(index) {
+  const item = messages[index];
+
+  document.getElementById("modalEmoji").textContent = item.emoji;
+  document.getElementById("modalTitle").textContent = item.title;
+  document.getElementById("modalText").textContent = item.text;
+  document.getElementById("modal").classList.add("show");
+
+  discovered.add(index);
+
+  if (discovered.size === messages.length) {
+    const button = document.getElementById("nextGalaxy");
+
+    button.disabled = false;
+    button.style.opacity = "1";
+    button.style.cursor = "pointer";
+  }
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+}
+
+function closeOutside(event) {
+  if (event.target.id === "modal") closeModal();
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+// ======================================
+// OPEN THE ENVELOPE
+// ======================================
+
+let letterOpened = false;
+
+function openEnvelope() {
+  if (letterOpened) return;
+
+  letterOpened = true;
+
+  document.getElementById("envelope").classList.add("open");
+
+  document.getElementById("envelopeHint").textContent =
+    "A message from my heart, with no expectation attached.";
+
+  document.getElementById("openLetter").style.display = "none";
+
+  setTimeout(() => {
+    document.getElementById("letterCard").classList.add("show");
+    makePetals(15);
+  }, 1000);
+}
+
+// ======================================
+// ANIMATED STAR BACKGROUND
+// ======================================
+
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+let width, height, starList = [];
+
+function resizeCanvas() {
+  const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  canvas.width = width * ratio;
+  canvas.height = height * ratio;
+
+  canvas.style.width = width + "px";
+  canvas.style.height = height + "px";
+
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+  starList = Array.from(
+    { length: Math.min(160, Math.floor(width / 3)) },
+    () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: Math.random() * 1.5 + .3,
+      a: Math.random() * .65 + .2,
+      speed: Math.random() * .008 + .002
+    })
+  );
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, width, height);
+
+  starList.forEach(star => {
+    star.a += star.speed;
+
+    const opacity = .3 + (Math.sin(star.a) + 1) * .3;
+
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+
+    ctx.fillStyle = `rgba(255,225,248,${opacity})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(drawStars);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+drawStars();
+
+// ======================================
+// FLOATING FLOWERS
+// ======================================
+
+function makePetals(count = 20) {
+  const container = document.getElementById("petals");
+  const symbols = ["🌸", "🌷", "♡", "✦", "💗"];
+
+  for (let i = 0; i < count; i++) {
+    const petal = document.createElement("span");
+
+    petal.className = "petal";
+    petal.textContent =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    petal.style.left = Math.random() * 100 + "vw";
+    petal.style.fontSize = (12 + Math.random() * 14) + "px";
+    petal.style.animationDuration = (4 + Math.random() * 5) + "s";
+    petal.style.animationDelay = (Math.random() * 1.5) + "s";
+
+    petal.style.setProperty(
+      "--drift",
+      (Math.random() * 150 - 75) + "px"
+    );
+
+    container.appendChild(petal);
+
+    setTimeout(() => petal.remove(), 11000);
+  }
+}
+
+function makeFlowers() {
+  makePetals(45);
+}
+
+// ======================================
+// OPTIONAL AMBIENT SOUND
+// ======================================
+
+let audioContext = null;
+let soundOn = false;
+let soundTimer = null;
+
+function playChime() {
+  if (!audioContext || !soundOn) return;
+
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  oscillator.type = "sine";
+
+  oscillator.frequency.value =
+    [392, 440, 523.25, 659.25][
+      Math.floor(Math.random() * 4)
+    ];
+
+  gain.gain.setValueAtTime(.0001, audioContext.currentTime);
+
+  gain.gain.exponentialRampToValueAtTime(
+    .035, audioContext.currentTime + .08
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .0001, audioContext.currentTime + 1.2
+  );
+
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + 1.3);
+}
+
+document.getElementById("musicBtn").addEventListener("click", async () => {
+  try {
+    if (!audioContext) {
+      const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioContextClass) {
+        alert("Ambient sound isn't supported in this browser.");
+        return;
+      }
+
+      audioContext = new AudioContextClass();
+    }
+
+    if (audioContext.state === "suspended") {
+      await audioContext.resume();
+    }
+
+    soundOn = !soundOn;
+
+    document.getElementById("musicBtn").textContent =
+      soundOn ? "♫ On" : "♫";
+
+    clearInterval(soundTimer);
+
+    if (soundOn) {
+      playChime();
+      soundTimer = setInterval(playChime, 2200);
+    }
+  } catch (error) {
+    alert("Sound could not be started. You can still enjoy the website.");
+  }
+});
+</script></body>
+</html>
